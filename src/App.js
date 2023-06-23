@@ -1,13 +1,16 @@
 import './App.css';
 import Navbar from './components/Navbar';
+// import About from './components/About';
+// import BmiCalculator from './components/BmiCalculator';
 import Textform from './components/Textform';
-// let name = "Saroj";
 
 function App() {
   return (
     <>
-      <Navbar title="TextUtils" aboutText="About Nav"/>
+      <Navbar title="TextUtils"/>
+      {/* <About /> */}
       <Textform heading="Enter the text to analyze"/>
+      {/* <BmiCalculator /> */}
     </>
   );
 }
