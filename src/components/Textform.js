@@ -5,6 +5,7 @@ export default function Textform(props) {
 const handleUpClick= () => {
   let newText = text.toUpperCase();
   setText(newText);
+  props.showAlert("Converted to uppercase!", "success");
 }
 
 const handleOnChange = (event)=> {
@@ -14,6 +15,7 @@ const handleOnChange = (event)=> {
 const handleLowerClick = ()=> {
   let newText = text.toLowerCase();
   setText(newText);
+  props.showAlert("Converted to Lowercase!", "success");
 }
 
 const handleCapClick = ()=> {
@@ -24,12 +26,14 @@ const handleCapClick = ()=> {
         pieces[i] = j + pieces[i].substr(1);
     }    
   setText(pieces.join(" "));
+  props.showAlert("Converted to Capatilize!", "success");
 }
 
 const handleCopy = ()=> {
   var text = document.getElementById("mybox");
   text.select();
   navigator.clipboard.writeText(text.value);
+  props.showAlert("Coppied to clipbord!", "success");
 }
 
 const handleAltCapClick = ()=> {
@@ -42,6 +46,7 @@ const handleAltCapClick = ()=> {
         pieces[i] = j + pieces[i].substr(1);
     }    
   setText(pieces.join(" "));
+  props.showAlert("Converted to alternative capatilize!", "success");
 }
 
 // const speak = () => {
@@ -54,33 +59,40 @@ const speak = () => {
       let msg = new SpeechSynthesisUtterance(text);
       window.speechSynthesis.speak(msg);
       const toogle = document.getElementById('toggle')
-      if (toogle.textContent == "Speak") {
+      if (toogle.textContent === "Speak") {
           toogle.innerHTML = "Stop"
       }
       else {
           toogle.innerHTML = "Speak"
-          if (toogle.innerHTML = "Speak"){
+          if (toogle.innerHTML === "Speak"){
               window.speechSynthesis.cancel()
           }
       }
+      props.showAlert("Speak move is on!", "success");
   }
 
   const handleResetClick = (event)=> {
     let newText = ("");
     setText(newText);
+    props.showAlert("Textbox is rest!", "success");
   }
   const handleExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
     setText(newText.join(" "));
+    props.showAlert("Extra space in removed!", "success");
+  }
+  function countWords(str) {
+    var matches = str.match(/[\w\d\’\'-]+/gi);
+    return matches ? matches.length : 0;
   }
 
   const [text, setText] = useState('Enter text here');
   return (
-    <div>
-        <div className="container my-4">
+    <div style={{backgroundColor: props.mode==='dark'?'#042743':'#fff', color: props.mode==='dark'?'#fff':'#042743'}}>
+        <div className="container py-4">
             <h1>{props.heading}</h1>
-            <div class="mb-3">
-                <textarea className="form-control" value={text} onChange={handleOnChange} id="mybox" rows="5"></textarea>
+            <div className="mb-3">
+                <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'#042743':'#fff',color:props.mode==='dark'?'#fff':'#042743'}} id="mybox" rows="5"></textarea>
             </div>
             <button className="btn btn-primary" onClick={handleUpClick}>Convert to Uppercase</button>
             <button className="btn btn-primary mx-2" onClick={handleLowerClick}>Convert to LowerCase</button>
@@ -91,13 +103,13 @@ const speak = () => {
             <button className="btn btn-primary" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
             <button className="btn btn-primary mx-2" onClick={handleResetClick}>Reset</button>
         </div>
-        <div className="container">
+        <div className="container  py-4">
           <h1>Your text summary</h1>
-          <p><b>{text.split(" ").length}</b> words and <b>{text.length}</b> Characters</p>
+          {/* <p><b>{text.split(" ").length}</b> words and <b>{text.length}</b> Characters</p> */}
+          <p><b>{countWords(text)}</b> words and <b>{text.length}</b> Characters</p>
           <p>{0.008 * text.split(" ").length} Minutes read.</p>
-          <p></p>
           <h3>Preview</h3>
-          <p>{text}</p>
+          <p>{text.length >0 ? text : 'Enter something in the textarea above to preview it here'}</p>
         </div>
     </div>
   )
