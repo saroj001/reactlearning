@@ -1,61 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 
-export default function Textform(props) {
-const handleUpClick= () => {
-  let newText = text.toUpperCase();
-  setText(newText);
-  props.showAlert("Converted to uppercase!", "success");
-}
+function Textform(props) {
+  const handleUpClick= () => {
+    let newText = text.toUpperCase();
+    setText(newText);
+    props.showAlert("Converted to uppercase!", "success");
+  }
 
-const handleOnChange = (event)=> {
-  setText(event.target.value);
-}
+  const handleOnChange = (event)=> {
+    setText(event.target.value);
+  }
 
-const handleLowerClick = ()=> {
-  let newText = text.toLowerCase();
-  setText(newText);
-  props.showAlert("Converted to Lowercase!", "success");
-}
+  const handleLowerClick = ()=> {
+    let newText = text.toLowerCase();
+    setText(newText);
+    props.showAlert("Converted to Lowercase!", "success");
+  }
 
-const handleCapClick = ()=> {
-  var pieces = text.split(" ");
-    for ( var i = 0; i < pieces.length; i++ )
-    {
-        var j = pieces[i].charAt(0).toUpperCase();
-        pieces[i] = j + pieces[i].substr(1);
-    }    
-  setText(pieces.join(" "));
-  props.showAlert("Converted to Capatilize!", "success");
-}
+  const handleCapClick = ()=> {
+    var pieces = text.split(" ");
+      for ( var i = 0; i < pieces.length; i++ )
+      {
+          var j = pieces[i].charAt(0).toUpperCase();
+          pieces[i] = j + pieces[i].substr(1);
+      }    
+    setText(pieces.join(" "));
+    props.showAlert("Converted to Capatilize!", "success");
+  }
 
-const handleCopy = ()=> {
-  var text = document.getElementById("mybox");
-  text.select();
-  navigator.clipboard.writeText(text.value);
-  props.showAlert("Coppied to clipbord!", "success");
-}
+  const handleCopy = ()=> {
+    var text = document.getElementById("mybox");
+    text.select();
+    navigator.clipboard.writeText(text.value);
+    props.showAlert("Coppied to clipbord!", "success");
+  }
 
-const handleAltCapClick = ()=> {
-  let newText = text.toUpperCase();
-  setText(newText);
-  var pieces = newText.split(" ");
-    for ( var i = 0; i < pieces.length; i++ )
-    {
-        var j = pieces[i].charAt(0).toLowerCase();
-        pieces[i] = j + pieces[i].substr(1);
-    }    
-  setText(pieces.join(" "));
-  props.showAlert("Converted to alternative capatilize!", "success");
-}
+  const handleAltCapClick = ()=> {
+    let newText = text.toUpperCase();
+    setText(newText);
+    var pieces = newText.split(" ");
+      for ( var i = 0; i < pieces.length; i++ )
+      {
+          var j = pieces[i].charAt(0).toLowerCase();
+          pieces[i] = j + pieces[i].substr(1);
+      }    
+    setText(pieces.join(" "));
+    props.showAlert("Converted to alternative capatilize!", "success");
+  }
 
-// const speak = () => {
-//   let msg = new SpeechSynthesisUtterance();
-//   msg.text = text;
-//   window.speechSynthesis.speak(msg);
-// }
+  // const speak = () => {
+  //   let msg = new SpeechSynthesisUtterance();
+  //   msg.text = text;
+  //   window.speechSynthesis.speak(msg);
+  // }
 
-const speak = () => {
+  const speak = () => {
       let msg = new SpeechSynthesisUtterance(text);
       window.speechSynthesis.speak(msg);
       const toogle = document.getElementById('toggle')
@@ -114,3 +114,5 @@ const speak = () => {
     </div>
   )
 }
+
+export default Textform;

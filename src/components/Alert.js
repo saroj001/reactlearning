@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function Alert(props) {
   const capatilize = (word)=> {
@@ -13,4 +13,4 @@ function Alert(props) {
   )
 }
 
-export default Alert
+export default Alert;

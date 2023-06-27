@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { Routes, Route } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Navbar';
-// import About from './components/About';
-// import BmiCalculator from './components/BmiCalculator';
+import About from './components/About';
+import BmiCalculator from './components/BmiCalculator';
 import Textform from './components/Textform';
 import Alert from './components/Alert';
 
@@ -42,10 +43,12 @@ function App() {
   return (
     <>
       <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
-      {/* <About /> */}
       <Alert alert={alert} />
-      <Textform heading="Enter the text to analyze" mode={mode} showAlert={showAlert} />
-      {/* <BmiCalculator /> */}
+      <Routes>
+          <Route index element={<Textform />} />
+          <Route exact path='/about' element={<About />} />
+          <Route exact path='/bmicalculator' element={<BmiCalculator />} />
+      </Routes>
     </>
   );
 }
