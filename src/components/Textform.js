@@ -89,9 +89,9 @@ function Textform(props) {
 
   const [text, setText] = useState('Enter text here');
   return (
-    <div style={{backgroundColor: props.mode==='dark'?'black':'white', color: props.mode==='dark'?'white':'black'}}>
+    <div>
         <div className="container py-4">
-            <h1>{props.heading}</h1>
+            <h1 className='mb-3'>{props.heading}</h1>
             <div className="mb-3">
                 <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'black':'white',color:props.mode==='dark'?'white':'black'}} id="mybox" rows="5"></textarea>
             </div>
@@ -109,7 +109,7 @@ function Textform(props) {
           {/* <p><b>{text.split(" ").length}</b> words and <b>{text.length}</b> Characters</p> */}
           <p><b>{countWords(text)}</b> words and <b>{text.length}</b> Characters</p>
         <p><b>{text.split(" ").filter((element)=>{return element.length!==0}).length}</b> words and <b>{text.length}</b> Characters</p>
-          <p>{0.008 * text.split(" ").length} Minutes read.</p>
+          <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes read.</p>
           <h3>Preview</h3>
           <p>{text.length >0 ? text : 'Nothing to preview'}</p>
         </div>

@@ -22,11 +22,22 @@ export default function App() {
     }, 1500);
   }
 
-  const toggleMode = ()=> {
+  const removeBodyClass = ()=> {
+    document.body.classList.remove('bg-light');
+    document.body.classList.remove('bg-dark');
+    document.body.classList.remove('bg-warning');
+    document.body.classList.remove('bg-danger');
+    document.body.classList.remove('bg-success');
+  }
+
+  const toggleMode = (cls)=> {
+    removeBodyClass();
+    console.log(cls);
+    document.body.classList.add('bg-'+cls);
     if(mode=== 'light') {
       setMode('dark');
       showAlert("Darkmode has been enabled","success");
-      document.body.style.backgroundColor = 'black';
+      // document.body.style.backgroundColor = 'black';
       // document.title = 'TextUtils - Dark Mode Enabled';
       // setInterval(() => {
       //   document.title = 'TextUtils is amazing app';        
@@ -38,7 +49,7 @@ export default function App() {
     else{
       setMode('light');
       showAlert("Lightmode has been enabled","success");
-      document.body.style.backgroundColor = 'white';
+      // document.body.style.backgroundColor = 'white';
       // document.title = 'TextUtils - Light Mode Enabled';
     }
   }
@@ -47,7 +58,7 @@ export default function App() {
       <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
       <Alert alert={alert} />
       <Routes>
-          <Route index element={<Textform showAlert={showAlert} mode={mode} heading='Try TextUtils - Word COunter, Character Counter, Remove Extra Spaces' />} />
+          <Route index element={<Textform showAlert={showAlert} mode={mode} heading='Try TextUtils - Word Counter, Character Counter, Remove Extra Spaces' />} />
           <Route exact path='/about' element={<About mode={mode} />} />
           <Route exact path='/bmicalculator' element={<BmiCalculator />} />
       </Routes>
