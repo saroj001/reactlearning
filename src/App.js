@@ -8,7 +8,7 @@ import Textform from './components/Textform';
 import Alert from './components/Alert';
 
 
-function App() {
+export default function App() {
   const [mode, setMode] = useState("light"); // whether dark mode is enabled or not
   const [alert, setAlert] = useState(null);
 
@@ -26,7 +26,8 @@ function App() {
     if(mode=== 'light') {
       setMode('dark');
       showAlert("Darkmode has been enabled","success");
-      document.title = 'TextUtils - Dark Mode Enabled';
+      document.body.style.backgroundColor = 'black';
+      // document.title = 'TextUtils - Dark Mode Enabled';
       // setInterval(() => {
       //   document.title = 'TextUtils is amazing app';        
       // }, 2000);
@@ -37,7 +38,8 @@ function App() {
     else{
       setMode('light');
       showAlert("Lightmode has been enabled","success");
-      document.title = 'TextUtils - Light Mode Enabled';
+      document.body.style.backgroundColor = 'white';
+      // document.title = 'TextUtils - Light Mode Enabled';
     }
   }
   return (
@@ -45,12 +47,10 @@ function App() {
       <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
       <Alert alert={alert} />
       <Routes>
-          <Route index element={<Textform />} />
-          <Route exact path='/about' element={<About />} />
+          <Route index element={<Textform showAlert={showAlert} mode={mode} heading='Try TextUtils - Word COunter, Character Counter, Remove Extra Spaces' />} />
+          <Route exact path='/about' element={<About mode={mode} />} />
           <Route exact path='/bmicalculator' element={<BmiCalculator />} />
       </Routes>
     </>
   );
 }
-
-export default App;

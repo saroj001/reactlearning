@@ -33,6 +33,7 @@ function Textform(props) {
     var text = document.getElementById("mybox");
     text.select();
     navigator.clipboard.writeText(text.value);
+    document.getSelection().removeAllRanges();
     props.showAlert("Coppied to clipbord!", "success");
   }
 
@@ -74,42 +75,43 @@ function Textform(props) {
   const handleResetClick = (event)=> {
     let newText = ("");
     setText(newText);
-    props.showAlert("Textbox is rest!", "success");
+    // props.showAlert("Textbox is rest!", "success");
   }
   const handleExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
     setText(newText.join(" "));
-    props.showAlert("Extra space in removed!", "success");
+    // props.showAlert("Extra space in removed!", "success");
   }
   function countWords(str) {
-    var matches = str.match(/[\w\d\’\'-]+/gi);
+    var matches = str.match(/[\w\d\'\'-]+/gi);
     return matches ? matches.length : 0;
   }
 
   const [text, setText] = useState('Enter text here');
   return (
-    <div style={{backgroundColor: props.mode==='dark'?'#042743':'#fff', color: props.mode==='dark'?'#fff':'#042743'}}>
+    <div style={{backgroundColor: props.mode==='dark'?'black':'white', color: props.mode==='dark'?'white':'black'}}>
         <div className="container py-4">
             <h1>{props.heading}</h1>
             <div className="mb-3">
-                <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'#042743':'#fff',color:props.mode==='dark'?'#fff':'#042743'}} id="mybox" rows="5"></textarea>
+                <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'black':'white',color:props.mode==='dark'?'white':'black'}} id="mybox" rows="5"></textarea>
             </div>
-            <button className="btn btn-primary" onClick={handleUpClick}>Convert to Uppercase</button>
-            <button className="btn btn-primary mx-2" onClick={handleLowerClick}>Convert to LowerCase</button>
-            <button className="btn btn-primary" onClick={handleCapClick}>Capatilize</button>
-            <button className="btn btn-primary mx-2" onClick={handleAltCapClick}>Alt Capatilize</button>
-            <button className="btn btn-primary" onClick={speak} id="toggle">Speak</button>
-            <button className="btn btn-primary mx-2" onClick={handleCopy}>Copy Text</button>
-            <button className="btn btn-primary" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
-            <button className="btn btn-primary mx-2" onClick={handleResetClick}>Reset</button>
+            <button disabled={text.length===0} className="btn btn-primary my-2" onClick={handleUpClick}>Convert to Uppercase</button>
+            <button  disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleLowerClick}>Convert to LowerCase</button>
+            <button  disabled={text.length===0} className="btn btn-primary my-2" onClick={handleCapClick}>Capatilize</button>
+            <button  disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleAltCapClick}>Alt Capatilize</button>
+            <button  disabled={text.length===0} className="btn btn-primary my-2" onClick={speak} id="toggle">Speak</button>
+            <button  disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleCopy}>Copy Text</button>
+            <button  disabled={text.length===0} className="btn btn-primary my-2" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+            <button  disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleResetClick}>Reset</button>
         </div>
         <div className="container  py-4">
           <h1>Your text summary</h1>
           {/* <p><b>{text.split(" ").length}</b> words and <b>{text.length}</b> Characters</p> */}
           <p><b>{countWords(text)}</b> words and <b>{text.length}</b> Characters</p>
+        <p><b>{text.split(" ").filter((element)=>{return element.length!==0}).length}</b> words and <b>{text.length}</b> Characters</p>
           <p>{0.008 * text.split(" ").length} Minutes read.</p>
           <h3>Preview</h3>
-          <p>{text.length >0 ? text : 'Enter something in the textarea above to preview it here'}</p>
+          <p>{text.length >0 ? text : 'Nothing to preview'}</p>
         </div>
     </div>
   )
