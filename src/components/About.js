@@ -12,7 +12,7 @@ export default function About(props) {
 	}
 
   return (
-		<div style={myStyle} className='py-4' style={myStyle}>
+		<div className='py-4'>
 			<div className='container'>
 				<h1 className='mb-3'>About us </h1>
 				<div className="accordion" id="accordionExample">
